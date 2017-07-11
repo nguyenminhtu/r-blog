@@ -1,0 +1,49 @@
+<% if @posts.present? %>
+
+    <table class="table table-hover">
+
+        <thead>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Slug</th>
+            <th>Created At</th>
+            <th colspan="3">Actions</th>
+        </thead>
+
+    <tbody>
+
+        <% @posts.each do |post| %>
+
+            <tr>
+                <td><%= post.id %></td>
+                <td><%= post.title %></td>
+                <td><%= truncate(post.description, length: 50) %></td>
+                <td>
+                    <img src="<%= post.image %>" alt="<%= post.title %>" width="96" height="100">
+                </td>
+                <td><%= post.slug %></td>
+                <td><%= post.time_ago %></td>
+                <td>
+                    <%= link_to "Show", authors_post_path(post), class: 'btn btn-info' %>
+                </td>
+                <td>
+                    <%= link_to "Edit", edit_authors_post_path(post), class: 'btn btn-warning' %>
+                </td>
+                <td>
+                    <%= link_to "Destroy", authors_post_path(post), method: :delete, data: { confirm: 'Are you sure want to delete that ?' }, class: 'btn btn-danger' %>
+                </td>
+            </tr>
+
+        <% end %>
+
+        </tbody>
+
+    </table>
+
+    <div class="text-center" style="margin-top: 40px;">
+        <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+    </div>
+
+<% end %>

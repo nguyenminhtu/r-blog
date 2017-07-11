@@ -1,0 +1,12 @@
+<% provide(:page_title, "#{@post.title}") %>
+
+<div class="text-center">
+    <h2><%= @post.title %></h2>
+
+    <img src="<%= @post.image %>" class="img-responsive" height="300">
+
+    <p><%= @post.description %></p>
+    <p><%= @post.body %></p>
+
+    <%= link_to "Edit", edit_authors_post_path(@post), class: 'btn btn-warning' %>
+</div>

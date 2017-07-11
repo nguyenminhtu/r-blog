@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TuBlog | <%= yield(:page_title) %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+        <%= render "layouts/navbar" %>
+
+        <div class="container">
+
+          <% if notice %>
+
+            <div class="row">
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <%= notice %>
+              </div>
+            </div>
+
+          <% end %>
+
+          <% if alert %>
+
+            <div class="row">
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <%= alert %>
+              </div>
+            </div>
+
+          <% end %>
+
+          <%= yield %>
+        </div>
+  </body>
+
+  <%= render 'layouts/footer' %>
+</html>
