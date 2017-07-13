@@ -1,0 +1,23 @@
+$("small#count-comment-<%= params[:id] %>").html("<%= pluralize(Comment.where(parent_id: params[:id]).count, 'reply') %>");
+
+$("div.parent-comment-<%= params[:id] %>").next().prepend(`<div class='well child-comment pull-right' id="delete-comment-<%= @comment.id %>">
+    <p>
+        <span class="left">
+            <img src="<%= @comment.author.gravatar_image_url %>" alt="<%= @comment.author.name %>" width="30" height="30">
+        </span>
+        <span class='left'><strong><%= @comment.author.name %></strong></span>
+        <small class='pull-right'><i><%= time_ago_in_words(@comment.created_at) %> ago</i></small>
+
+        <% if (@comment.author == current_author) || (@post.author == current_author) %>
+            <span class="pull-right">
+                <a id-post="<%= params[:post_id] %>" id-delete="<%= @comment.id %>" href="javascript:void(0)" class="btn btn-danger remove-comment">X</a>
+            </span>
+        <% end %>
+
+        <span class='clearfix'></span>
+    </p>
+    <p>
+        <%= @comment.content %>
+    </p>
+</div>
+<div class='clearfix'></div>`);

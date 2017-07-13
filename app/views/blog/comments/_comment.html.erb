@@ -1,0 +1,71 @@
+<% if comment.content && comment.author.name && comment.created_at %>
+
+    <div class="well parent-comment-<%= comment.id %>" id="delete-comment-<%= comment.id %>">
+        <p>
+            <span class="left">
+                <img src="<%= comment.author.gravatar_image_url %>" alt="<%= comment.author.name %>" width="30" height="30">
+            </span>
+            <span class="left"><strong><%= comment.author.name %></strong></span>
+            <small class="pull-right"><i><%= time_ago_in_words(comment.created_at) %> ago</i></small>
+            <span class="clearfix"></span>
+        </p>
+
+        <p><%= comment.content %></p>
+
+        <p>
+            <% if current_author %>
+                <a href="javascript:void(0)" class="reply-comment" id-delete="<%= comment.id %>">Reply</a>
+            <% end %>
+
+            <span class="pull-right">
+                <small id="count-comment-<%= comment.id %>"><%= pluralize(Comment.where(parent_id: comment.id).count, 'reply') %></small>
+                <%= link_to "Show", "javascript:void(0)", class: "show-comment" %>
+
+                <% if (comment.author == current_author) || (@post.author == current_author) %>
+                    <a id-post="<%= @post.id %>" id-delete="<%= comment.id %>" href="javascript:void(0)" class="btn btn-danger remove-comment">X</a>
+                <% end %>
+
+            </span>
+
+            <span class="clearfix"></span>
+        </p>
+
+        <div class="well hide" id="reply-comment-<%= comment.id %>">
+            <form class="form-reply-comment" parent-id="<%= comment.id %>" post-id="<%= @post.id %>">
+                <p><input type="text" name="reply-content" placeholder="Reply here..." class="form-control" required="true"></p>
+                <p><input type="submit" value="Send" class="btn btn-success"></p>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="hide">
+
+        <% Comment.where(parent_id: comment.id).order(created_at: :desc).each do |child| %>
+
+            <div class="well child-comment pull-right" id="delete-comment-<%= child.id %>">
+                <p>
+                    <span class="left">
+                        <img src="<%= child.author.gravatar_image_url %>" alt="<%= child.author.name %>" width="30" height="30">
+                    </span>
+                    <span class="left"><strong><%= child.author.name %></strong></span>
+                    <small class="pull-right"><i><%= time_ago_in_words(child.created_at) %> ago</i></small>
+
+                    <% if (child.author == current_author) || (@post.author == current_author) %>
+                        <span class="pull-right">
+                            <a id-post="<%= @post.id %>" id-delete="<%= child.id %>" href="javascript:void(0)" class="btn btn-danger remove-comment">X</a>
+                        </span>
+                    <% end %>
+
+                    <span class="clearfix"></span>
+                </p>
+
+                <p><%= child.content %></p>
+            </div>
+            <span class="clearfix"></span>
+
+        <% end %>
+
+    </div>
+
+<% end %>

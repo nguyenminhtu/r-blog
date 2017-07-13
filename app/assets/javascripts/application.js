@@ -13,5 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require tinymce
 //= require turbolinks
 //= require_tree .
+
+
+document.addEventListener("turbolinks:load", function () {
+    tinyMCE.remove();
+    tinyMCE.init({
+        selector: 'textarea#post_body',
+        plugins: "codesample textcolor colorpicker emoticons image link media preview wordcount autoresize",
+        toolbar: "styleselect | bold italic | undo redo | table codesample forecolor backcolor emoticons image link media preview"
+    });
+});

@@ -4,8 +4,6 @@ include ActionView::Helpers::DateHelper
 
 class Post < ApplicationRecord
 
-    PER_PAGE = 5
-
     mount_uploader :image, ImageUploader
 
     extend FriendlyId
@@ -13,6 +11,7 @@ class Post < ApplicationRecord
 
 
     belongs_to :author
+    has_many :comments, dependent: :destroy
 
     validates :title, presence: true
     validates :description, presence: true
@@ -20,7 +19,7 @@ class Post < ApplicationRecord
 
     scope :most_recent, -> { order(created_at: :desc) }
 
-    scope :get_all, -> (page) { most_recent.paginate(:page => page, :per_page => PER_PAGE) }
+    scope :get_all, -> (page, per_page) { most_recent.paginate(:page => page, :per_page => per_page) }
 
     scope :find_by_friendly, -> (id) { friendly.find(id) }
 

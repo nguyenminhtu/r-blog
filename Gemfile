@@ -42,6 +42,7 @@ gem 'friendly_id'
 gem 'carrierwave', '~> 1.0'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
+gem 'tinymce-rails'
 
 
 group :development, :test do

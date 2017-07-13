@@ -19,10 +19,10 @@
             <tr>
                 <td><%= post.id %></td>
                 <td><%= post.title %></td>
-                <td><%= truncate(post.description, length: 50) %></td>
                 <td>
                     <img src="<%= post.image %>" alt="<%= post.title %>" width="96" height="100">
                 </td>
+                <td><%= truncate(post.description, length: 50) %></td>
                 <td><%= post.slug %></td>
                 <td><%= post.time_ago %></td>
                 <td>
@@ -32,7 +32,7 @@
                     <%= link_to "Edit", edit_authors_post_path(post), class: 'btn btn-warning' %>
                 </td>
                 <td>
-                    <%= link_to "Destroy", authors_post_path(post), method: :delete, data: { confirm: 'Are you sure want to delete that ?' }, class: 'btn btn-danger' %>
+                    <%= link_to "Destroy", "javascript:void(0)", class: 'btn btn-danger remove-post' %>
                 </td>
             </tr>
 

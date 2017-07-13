@@ -3,10 +3,11 @@
 <div class="text-center">
     <h2><%= @post.title %></h2>
 
-    <img src="<%= @post.image %>" class="img-responsive" height="300">
+    <img src="<%= @post.image %>" class="img-responsive" style="height: 360px; width: 100%;">
 
     <p><%= @post.description %></p>
-    <p><%= @post.body %></p>
+    <p><%= raw @post.body %></p>
 
     <%= link_to "Edit", edit_authors_post_path(@post), class: 'btn btn-warning' %>
+    <%= link_to "Back", authors_posts_path, class: 'btn btn-info' %>
 </div>

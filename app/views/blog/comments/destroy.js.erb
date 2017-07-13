@@ -1,0 +1,7 @@
+$("div#delete-comment-<%= params[:id] %>").remove();
+
+<% if @children.count > 0 %>
+    $("div#delete-comment-<%= params[:id] %>").next().remove();
+<% else %>
+    $("small#count-comment-<%= @comment.parent_id %>").html("<%= pluralize(Comment.where(parent_id: @comment.parent_id).count, 'reply') %>");
+<% end %>

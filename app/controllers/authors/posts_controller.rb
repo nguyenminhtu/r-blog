@@ -5,7 +5,7 @@ module Authors
         before_action :authenticate_author!
 
         def index
-            @posts = current_author.posts.get_all(params[:page])
+            @posts = current_author.posts.get_all(params[:page], 5)
         end
 
         def new

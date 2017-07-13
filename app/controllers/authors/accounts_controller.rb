@@ -4,6 +4,7 @@ module Authors
         before_action :authenticate_author!
 
         def get_update
+            @author = current_author
         end
 
         def update_info
@@ -24,7 +25,17 @@ module Authors
                     sign_in(author, bypass: true)
                     format.html { redirect_to authors_my_account_path, notice: "Account was updated successfully" }
                 else
-                    format.html { redirect_to authors_my_account_path, alert: "Wrong password !" }
+                    format.html { render 'get_update', alert: "Wrong password !" }
+                end
+            end
+        end
+
+        def update_avatar
+            respond_to do |format|
+                if current_author.update(avatar_params)
+                    format.html { redirect_to authors_my_account_path, notice: "Avatar was updated successfully" }
+                else
+                    format.html { render 'get_update', alert: "Avatar could not be updated" }
                 end
             end
         end
@@ -38,6 +49,10 @@ module Authors
 
             def password_params
                 params.require(:author).permit(:current_password, :password, :password_confirmation)
+            end
+
+            def avatar_params
+                params.require(:author).permit(:avatar)
             end
 
     end
